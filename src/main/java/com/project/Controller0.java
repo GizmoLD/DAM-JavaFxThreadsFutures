@@ -45,7 +45,7 @@ public class Controller0 {
                         Platform.runLater(() -> {
                             percentatge0.setText(String.valueOf(currentValue) + "%");
                         });
-                        Thread.sleep(20);
+                        Thread.sleep(200);
 
                     }
 
@@ -54,7 +54,7 @@ public class Controller0 {
                         Platform.runLater(() -> {
                             percentatge1.setText(String.valueOf(currentValue) + "%");
                         });
-                        Thread.sleep(40);
+                        Thread.sleep(400);
                     }
 
                     System.out.println("Updating label: " + index + ", Value: " + currentValue);
