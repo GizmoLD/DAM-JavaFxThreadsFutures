@@ -54,30 +54,31 @@ public class Controller1 implements initialize {
 
     @FXML
     private void loadImage() {
-        LoadImage li00 = new LoadImage(loading00, img00, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li01 = new LoadImage(loading01, img01, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li02 = new LoadImage(loading02, img02, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li03 = new LoadImage(loading03, img03, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li04 = new LoadImage(loading04, img04, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li05 = new LoadImage(loading05, img05, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li06 = new LoadImage(loading06, img06, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li07 = new LoadImage(loading07, img07, "/assets/image.png", progressBar0, progress, text0);
+        progressBar0.setProgress(0);
+        LoadImage li00 = new LoadImage(loading00, img00, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li01 = new LoadImage(loading01, img01, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li02 = new LoadImage(loading02, img02, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li03 = new LoadImage(loading03, img03, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li04 = new LoadImage(loading04, img04, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li05 = new LoadImage(loading05, img05, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li06 = new LoadImage(loading06, img06, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li07 = new LoadImage(loading07, img07, "/assets/image1.png", progressBar0, progress, text0);
         LoadImage li08 = new LoadImage(loading08, img08, "/assets/image.png", progressBar0, progress, text0);
         LoadImage li09 = new LoadImage(loading09, img09, "/assets/image.png", progressBar0, progress, text0);
         LoadImage li10 = new LoadImage(loading10, img10, "/assets/image.png", progressBar0, progress, text0);
         LoadImage li11 = new LoadImage(loading11, img11, "/assets/image.png", progressBar0, progress, text0);
         LoadImage li12 = new LoadImage(loading12, img12, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li13 = new LoadImage(loading13, img13, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li14 = new LoadImage(loading14, img14, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li15 = new LoadImage(loading15, img15, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li16 = new LoadImage(loading16, img16, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li17 = new LoadImage(loading17, img17, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li18 = new LoadImage(loading18, img18, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li19 = new LoadImage(loading19, img19, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li20 = new LoadImage(loading20, img20, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li21 = new LoadImage(loading21, img21, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li22 = new LoadImage(loading22, img22, "/assets/image.png", progressBar0, progress, text0);
-        LoadImage li23 = new LoadImage(loading23, img23, "/assets/image.png", progressBar0, progress, text0);
+        LoadImage li13 = new LoadImage(loading13, img13, "/assets/image0.png", progressBar0, progress, text0);
+        LoadImage li14 = new LoadImage(loading14, img14, "/assets/image0.png", progressBar0, progress, text0);
+        LoadImage li15 = new LoadImage(loading15, img15, "/assets/image0.png", progressBar0, progress, text0);
+        LoadImage li16 = new LoadImage(loading16, img16, "/assets/image0.png", progressBar0, progress, text0);
+        LoadImage li17 = new LoadImage(loading17, img17, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li18 = new LoadImage(loading18, img18, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li19 = new LoadImage(loading19, img19, "/assets/image1.png", progressBar0, progress, text0);
+        LoadImage li20 = new LoadImage(loading20, img20, "/assets/image0.png", progressBar0, progress, text0);
+        LoadImage li21 = new LoadImage(loading21, img21, "/assets/image0.png", progressBar0, progress, text0);
+        LoadImage li22 = new LoadImage(loading22, img22, "/assets/image0.png", progressBar0, progress, text0);
+        LoadImage li23 = new LoadImage(loading23, img23, "/assets/image0.png", progressBar0, progress, text0);
 
         futures.add(CompletableFuture.runAsync(() -> li00.loadImageInBackground()));
         futures.add(CompletableFuture.runAsync(() -> li01.loadImageInBackground()));

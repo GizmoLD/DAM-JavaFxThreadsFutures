@@ -93,11 +93,11 @@ public class Controller0 {
     private void runBackgroundTask(int index, ProgressBar progressBar, Label percentageLabel, Button button,int  minN, int maxN, int minS, int maxS) {
         try {
             for (int i = 0; i <= 100; i++) {
-                int random = randomNumber(minN, maxN);
-                final int currentValue = i + random;
+                final int currentValue = i;
                 i = currentValue;
                 Platform.runLater(() -> {
-                    double progressValue = (double) currentValue / 100;
+                    double random = randomNumber(minN, maxN)/100.0;
+                    double progressValue = progressBar.getProgress() + random;
                     if (progressValue >=1.0){
                         progressValue = 1.0;
                         progressBar.setProgress(1.0);
@@ -105,12 +105,11 @@ public class Controller0 {
                     }
                     progressBar.setProgress(progressValue);
                     String formattedPercentage = String.format("%.0f%%", progressValue * 100);
-
                     percentageLabel.setText(formattedPercentage);
                 }
                 );
 
-                Thread.sleep(randomNumber(minS, maxS) * 100); 
+                Thread.sleep(randomNumber(minS, maxS) * 1000); 
             }
         } catch (InterruptedException e) {
             System.out.println("Carrèga detenida");
