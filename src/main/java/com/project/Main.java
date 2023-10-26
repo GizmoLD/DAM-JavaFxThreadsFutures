@@ -22,7 +22,7 @@ public class Main extends Application {
         UtilsViews.addView(getClass(), "View1", "/assets/view1.fxml");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
-        
+
         stage.setScene(scene);
         stage.setTitle("Animació entre vistes");
         stage.setMinWidth(windowWidth);

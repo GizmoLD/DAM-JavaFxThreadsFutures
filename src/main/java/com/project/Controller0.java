@@ -2,24 +2,38 @@ package com.project;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadLocalRandom;
 import javafx.application.Platform;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 
 public class Controller0 {
+    private ExecutorService executor = Executors.newFixedThreadPool(3);
+    private Future<?> f0, f1, f2;
+
+    private boolean tasca0Running = false;
+    private boolean tasca1Running = false;
+    private boolean tasca2Running = false;
 
     @FXML
-    private Button button0, button1;
+    private Button button0, button1, button2;
+    @FXML
+    private Button buttonTask0, buttonTask1, buttonTask2;
+    @FXML
+    private ProgressBar progressBar0;
+    @FXML
+    private ProgressBar progressBar1;
+    @FXML
+    private ProgressBar progressBar2;
     @FXML
     private AnchorPane container;
     @FXML
-    private Label percentatge0, percentatge1;
-    
-    private ExecutorService executor = Executors.newFixedThreadPool(2); // Creem una pool de dos fils
+    private Label percentatge0, percentatge1, percentatge2;
 
     @FXML
     private void animateToView1(ActionEvent event) {
@@ -27,47 +41,124 @@ public class Controller0 {
     }
 
     @FXML
-    private void runTask() {
+    private void runTask0() {
+        tasca0Running = !tasca0Running;
+        if (tasca0Running) {
+            buttonTask0.setText("Aturar");
+            backgroundTask(0);
+        } else {
+            buttonTask0.setText("Iniciar");
+            stopTask(0);
+        }
+    }
 
-        backgroundTask(0);
-        backgroundTask(1);
+    @FXML
+    private void runTask1() {
+        tasca1Running = !tasca1Running;
+        if (tasca1Running) {
+            buttonTask1.setText("Aturar");
+            backgroundTask(1);
+        } else {
+            buttonTask1.setText("Iniciar");
+            stopTask(1);
+        }
+    }
+
+    @FXML
+    private void runTask2() {
+        tasca2Running = !tasca2Running;
+        if (tasca2Running) {
+            buttonTask2.setText("Aturar");
+            backgroundTask(2);
+        } else {
+            buttonTask2.setText("Iniciar");
+            stopTask(2);
+        }
     }
 
     private void backgroundTask(int index) {
-        // Executar la tasca
-        executor.submit(() -> {
-            try {
-                for (int i = 0; i <= 100; i++) {
-                    final int currentValue = i;
-    
-                    if (index == 0) {
-                        // Actualitzar el Label en el fil d'aplicació de l'UI
-                        Platform.runLater(() -> {
-                            percentatge0.setText(String.valueOf(currentValue) + "%");
-                        });
-                        Thread.sleep(200);
+        switch (index) {
+            case 0:
+                f0 = executor.submit(() -> runBackgroundTask(index, progressBar0, percentatge0, buttonTask0,1,1,1,1));
+                break;
+            case 1:
+                f1 = executor.submit(() -> runBackgroundTask(index, progressBar1, percentatge1, buttonTask1,2,4,3,5));
+                break;
+            case 2:
+                f2 = executor.submit(() -> runBackgroundTask(index, progressBar2, percentatge2, buttonTask2,4,6,3,8));
+                break;
+        }
+    }
 
+    private void runBackgroundTask(int index, ProgressBar progressBar, Label percentageLabel, Button button,int  minN, int maxN, int minS, int maxS) {
+        try {
+            for (int i = 0; i <= 100; i++) {
+                int random = randomNumber(minN, maxN);
+                final int currentValue = i + random;
+                i = currentValue;
+                Platform.runLater(() -> {
+                    double progressValue = (double) currentValue / 100;
+                    if (progressValue >=1.0){
+                        progressValue = 1.0;
+                        progressBar.setProgress(1.0);
+                        percentageLabel.setText(progressValue * 100 + "%");
                     }
+                    progressBar.setProgress(progressValue);
+                    String formattedPercentage = String.format("%.0f%%", progressValue * 100);
 
-                    if (index == 1) {
-                        // Actualitzar el Label en el fil d'aplicació de l'UI
-                        Platform.runLater(() -> {
-                            percentatge1.setText(String.valueOf(currentValue) + "%");
-                        });
-                        Thread.sleep(400);
-                    }
-
-                    System.out.println("Updating label: " + index + ", Value: " + currentValue);
+                    percentageLabel.setText(formattedPercentage);
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                );
+
+                Thread.sleep(randomNumber(minS, maxS) * 100); 
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Carrèga detenida");
+        }
+
+        Platform.runLater(() -> {
+            button.setText("Iniciar");
+            if (index == 0){
+                tasca0Running = false;
+            }else if (index ==1){
+                tasca1Running = false;
+            }else if (index ==2){                
+                tasca2Running = false;
             }
         });
     }
-    
-    // Aquesta funció la cridaries quan vulguis tancar l'executor (per exemple, quan tanquis la teva aplicació)
+
+    public void stopTask(int index) {
+        switch (index) {
+            case 0:
+                if (f0 != null && !f0.isDone()) {
+                    f0.cancel(true);
+                }
+                progressBar0.setProgress(0);
+                percentatge0.setText("0%");
+                break;
+            case 1:
+                if (f1 != null && !f1.isDone()) {
+                    f1.cancel(true);
+                }
+                progressBar1.setProgress(0);
+                percentatge1.setText("0%");
+                break;
+            case 2:
+                if (f2 != null && !f2.isDone()) {
+                    f2.cancel(true);
+                }
+                progressBar2.setProgress(0);
+                percentatge2.setText("0%");
+                break;
+        }
+    }
+
     public void stopExecutor() {
         executor.shutdown();
     }
 
+    public int randomNumber(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
 }

@@ -19,4 +19,3 @@ Per executar el projecte a Linux/macOS cal
 ```bash
 ./run.sh com.project.Main
 ```
-
